@@ -16,9 +16,12 @@ namespace FoodApi.Data
 
         public DbSet<Users> Users { get; set; }
         public DbSet<DeliveryBoys> DeliveryBoys { get; set; }
-
+        public DbSet<FamilyMemberDetails> FamilyMemberDetails { get; set; }
         public DbSet<ADMINMast> ADMINMast { get; set; }
-
+        public DbSet<Offices> Offices { get; set; }
+        public DbSet<SubscriptionSchedule> SubscriptionSchedule { get; set; }
+        public DbSet<ModeTypes> ModeTypes { get; set; }
+        public DbSet<AppInstallations> AppInstallations { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderDetail> OrderDetails { get; set; }
