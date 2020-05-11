@@ -5,6 +5,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Controllers\CategoriesController.cs" />
+    <Compile Remove="Controllers\OrdersController.cs" />
+    <Compile Remove="Controllers\ProductsController.cs" />
+    <Compile Remove="Controllers\ShoppingCartItemsController.cs" />
+    <Compile Remove="Controllers\UsersController.cs" />
+    <Compile Remove="Models\User.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AspNetCore.Authentication.Plugin" Version="1.0.1" />
     <PackageReference Include="AspNetCore.ImageUploader" Version="1.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.2" />

@@ -16,12 +16,12 @@ namespace FoodApi.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
-    public class UsersController : ControllerBase
+    public class AccountsController : ControllerBase
     {
         private IConfiguration _configuration;
         private readonly AuthService _auth;
         private FoodDbContext _dbContext;
-        public UsersController(FoodDbContext dbContext, IConfiguration configuration)
+        public AccountsController(FoodDbContext dbContext , IConfiguration configuration)
         {
             _configuration = configuration;
             _auth = new AuthService(_configuration);
@@ -30,29 +30,16 @@ namespace FoodApi.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> Register(Users user)
+        public async Task<IActionResult> Register(User user)
         {
             var userWithSameEmail = _dbContext.Users.SingleOrDefault(u => u.Email == user.Email);
             if (userWithSameEmail != null) return BadRequest("User with this email already exists");
-            var userObj = new Users
+            var userObj = new User
             {
-                UserId = Guid.NewGuid(),
-                Username = user.Username,
-                Password = user.Password,
-                FName = user.FName,
-                LName = user.LName,
+                Name = user.Name,
                 Email = user.Email,
-                Phone1 = user.Phone1,
-                Phone2 = user.Phone2,
-                Address = user.Address,
-                LocationMAP = user.LocationMAP,
-                Gender = user.Gender,
-                BirthDate = user.BirthDate,
-                Age = user.Age,
-                DateRegistered = user.DateRegistered,
-                CityID = user.CityID,
-                RegionID = user.RegionID,
-                Active = user.Active
+                Password = SecurePasswordHasherHelper.Hash(user.Password),
+                Role = "User"
             };
             _dbContext.Users.Add(userObj);
             await _dbContext.SaveChangesAsync();
@@ -61,7 +48,7 @@ namespace FoodApi.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        public IActionResult Login(Users user)
+        public IActionResult Login(User user)
         {
             var userEmail = _dbContext.Users.FirstOrDefault(u => u.Email == user.Email);
             if (userEmail == null) return StatusCode(StatusCodes.Status404NotFound);
@@ -80,8 +67,8 @@ namespace FoodApi.Controllers
             {
                 access_token = token.AccessToken,
                 token_type = token.TokenType,
-                user_Id = userEmail.UserId,
-                user_name = userEmail.Username,
+                user_Id = userEmail.Id,
+                user_name = userEmail.Name,
                 expires_in = token.ExpiresIn,
                 creation_Time = token.ValidFrom,
                 expiration_Time = token.ValidTo,
