@@ -27,6 +27,17 @@ namespace FoodApi.Data
         public DbSet<OrderDetail> OrderDetails { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<ShoppingCartItem> ShoppingCartItems { get; set; }  
-
+        public DbSet<ItemAddOns> ItemAddOns { get; set; }
+        public DbSet<Items> Items { get; set; }
+        public DbSet<ItemTypes> ItemTypes { get; set; }
+        public DbSet<Offers> Offers { get; set; }
+        public DbSet<Region> Region { get; set; }
+        public DbSet<Schools> Schools { get; set; }
+        public DbSet<UserSubscriptions> UserSubscriptions { get; set; }
+        public DbSet<VendorItems> VendorItems { get; set; }
+        public DbSet<Vendors> Vendors { get; set; }
+		public DbSet<DeliveryVehicles> DeliveryVehicles { get; set; }
+		public DbSet<City> City { get; set; }
+        public DbSet<AdminRegions> AdminRegions { get; set; }
     }
 }
