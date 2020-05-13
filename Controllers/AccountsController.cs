@@ -87,5 +87,34 @@ namespace FoodApi.Controllers
                 expiration_Time = token.ValidTo,
             });
         }
+
+
+        [HttpPost]
+        [AllowAnonymous]
+        public IActionResult AdminLogin(ADMINMast ADMINMast)
+        {
+            var UserName = _dbContext.ADMINMast.FirstOrDefault(a => a.UserName == a.UserName);
+            if (UserName == null) return StatusCode(StatusCodes.Status404NotFound);
+            var hashedPassword = UserName.Password;
+            if (!SecurePasswordHasherHelper.Verify(ADMINMast.Password, hashedPassword)) return Unauthorized();
+            var claims = new[]
+            {
+                new Claim(JwtRegisteredClaimNames.Sub, ADMINMast.UserName),
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                new Claim(ClaimTypes.Name, ADMINMast.UserName),
+            };
+
+            var token = _auth.GenerateAccessToken(claims);
+            return new ObjectResult(new
+            {
+                access_token = token.AccessToken,
+                token_type = token.TokenType,
+                Admin_Id = ADMINMast.AdminID,
+                user_name = ADMINMast.UserName,
+                expires_in = token.ExpiresIn,
+                creation_Time = token.ValidFrom,
+                expiration_Time = token.ValidTo,
+            });
+        }
     }
 }
