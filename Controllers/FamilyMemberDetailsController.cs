@@ -27,7 +27,7 @@ namespace FoodApi.Controllers
         public IActionResult FamilyMemberDetailsDetails(string FamilyMemberDetailsID)
         {
 
-            var FamilyMemberDetails = _dbContext.FamilyMemberDetails.Where(FamilyMemberDetails => FamilyMemberDetails.FamMembID.ToString() == FamilyMemberDetailsID).OrderByDescending(o => o.Name);
+            var FamilyMemberDetails = _dbContext.FamilyMemberDetails.Where(FamilyMemberDetails => FamilyMemberDetails.FamMembID.ToString() == FamilyMemberDetailsID).OrderByDescending(o => o.MembFName);
             return Ok(FamilyMemberDetails);
         }
 
