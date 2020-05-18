@@ -1,9 +1,11 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace FoodApi.Models
 {
     public class Items
     {
+        [Key]
         public Guid ItemID { get; set; }
         public Guid ItemTypeID { get; set; }
         public string ItemCode { get; set; }

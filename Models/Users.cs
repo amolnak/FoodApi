@@ -1,9 +1,11 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace FoodApi.Models
 {
     public class Users
     {
+        [Key]
         public Guid UserId { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }

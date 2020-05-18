@@ -1,9 +1,11 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace FoodApi.Models
 {
     public class ADMINMast
     {
+        [Key]
         public Guid AdminID { get; set; }
         public string Name { get; set; }
         public string EmailID { get; set; }
