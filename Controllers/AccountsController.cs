@@ -32,31 +32,38 @@ namespace FoodApi.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Register(Users user)
         {
-            var userWithSameEmail = _dbContext.Users.SingleOrDefault(u => u.Email == user.Email);
-            if (userWithSameEmail != null) return BadRequest("User with this email already exists");
-            var userObj = new Users
+            try
             {
-                UserId = Guid.NewGuid(),
-                Username = user.Username,
-                Password = user.Password,
-                FName = user.FName,
-                LName = user.LName,
-                Email = user.Email,
-                Phone1 = user.Phone1,
-                Phone2 = user.Phone2,
-                Address = user.Address,
-                LocationMAP = user.LocationMAP,
-                Gender = user.Gender,
-                BirthDate = user.BirthDate,
-                Age = user.Age,
-                DateRegistered = user.DateRegistered,
-                CityID = user.CityID,
-                RegionID = user.RegionID,
-                Active = user.Active
-            };
-            _dbContext.Users.Add(userObj);
-            await _dbContext.SaveChangesAsync();
-            return StatusCode(StatusCodes.Status201Created);
+                var userWithSameEmail = _dbContext.Users.SingleOrDefault(u => u.Email == user.Email);
+                if (userWithSameEmail != null) return BadRequest("User with this email already exists");
+                var userObj = new Users
+                {
+                    UserId = Guid.NewGuid().ToString(),
+                    Username = user.Username,
+                    Password = user.Password,
+                    FName = user.FName,
+                    LName = user.LName,
+                    Email = user.Email,
+                    Phone1 = user.Phone1,
+                    Phone2 = user.Phone2,
+                    Address = user.Address,
+                    LocationMAP = user.LocationMAP,
+                    Gender = user.Gender,
+                    BirthDate = user.BirthDate,
+                    Age = user.Age,
+                    DateRegistered = user.DateRegistered,
+                    CityID = user.CityID,
+                    RegionID = user.RegionID,
+                    Active = user.Active
+                };
+                _dbContext.Users.Add(userObj);
+                await _dbContext.SaveChangesAsync();
+                return StatusCode(StatusCodes.Status201Created);
+            }
+            catch(Exception ex)
+            {
+                return StatusCode(StatusCodes.Status201Created);
+            }
         }
 
         [HttpPost]
