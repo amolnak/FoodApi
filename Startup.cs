@@ -51,7 +51,7 @@ namespace FoodApi
                        ClockSkew = TimeSpan.Zero,
                    };
                });
-            services.AddDbContext<FoodDbContext>(option => option.UseSqlServer(@";data source=DESKTOP-G585KR9;initial catalog=FoodAppDb;integrated security=True;"));
+            services.AddDbContext<FoodDbContext>(option => option.UseSqlServer(@";data source=DESKTOP-G585KR9;initial catalog=Food;integrated security=True;"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -67,7 +67,7 @@ namespace FoodApi
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
-            foodDbContext.Database.EnsureCreated();
+            //foodDbContext.Database.EnsureCreated();
 
             app.UseEndpoints(endpoints =>
             {
