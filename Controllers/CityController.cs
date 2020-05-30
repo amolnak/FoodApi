@@ -31,6 +31,15 @@ namespace FoodApi.Controllers
             return Ok(City);
         }
 
+        // GET: api/ADMINMast/RegionDetails/5
+        [HttpGet("[action]")]
+        public IActionResult GetCity()
+        {
+
+            var City = _dbContext.City.OrderByDescending(o => o.CityName);
+            return Ok(City);
+        }
+
         [HttpPost]
         [AllowAnonymous]
         public async Task<IActionResult> Register(City City)

@@ -30,6 +30,14 @@ namespace FoodApi.Controllers
             var Region = _dbContext.Region.Where(Region => Region.RegionID.ToString() == RegionID).OrderByDescending(o => o.RegionName);
             return Ok(Region);
         }
+        // GET: api/ADMINMast/RegionDetails/5
+        [HttpGet("[action]")]
+        public IActionResult GetRegion()
+        {
+
+            var Region = _dbContext.Region.OrderByDescending(o => o.RegionName);
+            return Ok(Region);
+        }
 
         [HttpPost]
         [AllowAnonymous]

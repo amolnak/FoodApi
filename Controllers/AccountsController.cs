@@ -47,7 +47,7 @@ namespace FoodApi.Controllers
                     Phone1 = user.Phone1,
                     Phone2 = user.Phone2,
                     Address = user.Address,
-                    LocationMAP = user.LocationMAP,
+                    LocationMAP = "",
                     Gender = user.Gender,
                     BirthDate = user.BirthDate,
                     Age = user.Age,
