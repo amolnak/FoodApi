@@ -41,7 +41,7 @@ namespace FoodApi.Controllers
             {
                 FamMembID = Guid.NewGuid(),
                 MembType = FamilyMemberDetails.MembType,
-                UserId = FamilyMemberDetails.UserId,
+                userId = FamilyMemberDetails.userId,
                 MembFName = FamilyMemberDetails.MembFName,
                 MembLName = FamilyMemberDetails.MembLName,
                 MembEmail = FamilyMemberDetails.MembEmail,

@@ -6,6 +6,7 @@ using FoodApi.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace FoodApi.Controllers
 {
@@ -22,7 +23,7 @@ namespace FoodApi.Controllers
 
         // GET: api/ShoppingCartItems
         [HttpGet("{userId}")]
-        public IActionResult Get(int userId)
+        public IActionResult Get(Guid userId)
         {
             var user = _dbContext.ShoppingCartItems.Where(s => s.CustomerId == userId);
             if (user == null)
@@ -49,7 +50,7 @@ namespace FoodApi.Controllers
         // GET: api/ShoppingCartItems/SubTotal/5
 
         [HttpGet("[action]/{userId}")]
-        public IActionResult SubTotal(int userId)
+        public IActionResult SubTotal(Guid userId)
         {
             var subTotal = (from cart in _dbContext.ShoppingCartItems
                             where cart.CustomerId == userId
@@ -60,7 +61,7 @@ namespace FoodApi.Controllers
 
         // GET: api/ShoppingCartItems/TotalItems/5
         [HttpGet("[action]/{userId}")]
-        public IActionResult TotalItems(int userId)
+        public IActionResult TotalItems(System.Guid userId)
         {
             var cartItems = (from cart in _dbContext.ShoppingCartItems
                              where cart.CustomerId == userId
@@ -96,7 +97,7 @@ namespace FoodApi.Controllers
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{userId}")]
-        public IActionResult Delete(int userId)
+        public IActionResult Delete(Guid userId)
         {
             var shoppingCart = _dbContext.ShoppingCartItems.Where(s => s.CustomerId == userId);
             _dbContext.ShoppingCartItems.RemoveRange(shoppingCart);

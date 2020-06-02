@@ -26,16 +26,23 @@ namespace FoodApi.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            var categories = from c in _dbContext.Categories
-                             select new
-                             {
-                                 Id = c.Id,
-                                 Name = c.Name,
-                                 ImageUrl = c.ImageUrl
-                             };
+            try
+            {
+                var categories = from c in _dbContext.Categories
+                                 select new
+                                 {
+                                     Id = c.Id,
+                                     Name = c.Name,
+                                     ImageUrl = c.ImageUrl
+                                 };
 
 
-            return Ok(categories);
+                return Ok(categories);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         // GET: api/Categories/5

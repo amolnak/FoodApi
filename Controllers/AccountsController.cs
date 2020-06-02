@@ -38,7 +38,7 @@ namespace FoodApi.Controllers
                 if (userWithSameEmail != null) return BadRequest("User with this email already exists");
                 var userObj = new Users
                 {
-                    UserId = Guid.NewGuid().ToString(),
+                    userId = Guid.NewGuid(),
                     Username = user.Username,
                     Password = user.Password,
                     FName = user.FName,
@@ -70,16 +70,17 @@ namespace FoodApi.Controllers
         [AllowAnonymous]
         public IActionResult Login(Users user)
         {
-            var userEmail = _dbContext.Users.FirstOrDefault(u => u.Email == user.Email);
+            var userEmail = _dbContext.Users.FirstOrDefault(u => u.Email == user.Username);
             if (userEmail == null) return StatusCode(StatusCodes.Status404NotFound);
             var hashedPassword = userEmail.Password;
-            if (!SecurePasswordHasherHelper.Verify(user.Password, hashedPassword)) return Unauthorized();
+            //if (!SecurePasswordHasherHelper.Verify(user.Password, hashedPassword)) return Unauthorized();
+            if (!(user.Password == hashedPassword)) return Unauthorized();
             var claims = new[]
             {
-                new Claim(JwtRegisteredClaimNames.Sub, user.Email),
+                new Claim(JwtRegisteredClaimNames.Sub, user.Username),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                new Claim(JwtRegisteredClaimNames.Email, user.Email),
-                new Claim(ClaimTypes.Name, user.Email),
+                new Claim(JwtRegisteredClaimNames.Email, user.Username),
+                new Claim(ClaimTypes.Name, user.Username),
             };
 
             var token = _auth.GenerateAccessToken(claims);
@@ -87,7 +88,7 @@ namespace FoodApi.Controllers
             {
                 access_token = token.AccessToken,
                 token_type = token.TokenType,
-                user_Id = userEmail.UserId,
+                user_Id = userEmail.userId,
                 user_name = userEmail.Username,
                 expires_in = token.ExpiresIn,
                 creation_Time = token.ValidFrom,

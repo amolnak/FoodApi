@@ -52,7 +52,7 @@ namespace FoodApi.Controllers
                 SubscriptionEndDate = UserSubscriptions.SubscriptionEndDate,
                 SubscriptionPrice = UserSubscriptions.SubscriptionPrice,
                 SubscriptionStartDate = UserSubscriptions.SubscriptionStartDate,
-                UserID = UserSubscriptions.UserID
+                userId = UserSubscriptions.userId
             };
             _dbContext.UserSubscriptions.Add(UserSubscriptionsObj);
             await _dbContext.SaveChangesAsync();

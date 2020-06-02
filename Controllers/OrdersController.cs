@@ -67,9 +67,9 @@ namespace FoodApi.Controllers
 
         // GET: api/Orders/OrdersByUser/5
         [HttpGet("[action]/{userId}")]
-        public IActionResult OrdersByUser(int userId)
+        public IActionResult OrdersByUser(Guid userId)
         {
-            var orders = _dbContext.Orders.Where(order => order.UserId == userId).OrderByDescending(o => o.OrderPlaced);
+            var orders = _dbContext.Orders.Where(order => order.userId == userId).OrderByDescending(o => o.OrderPlaced);
             return Ok(orders);
         }
 
@@ -82,7 +82,7 @@ namespace FoodApi.Controllers
             _dbContext.Orders.Add(order);
             _dbContext.SaveChanges();
 
-            var shoppingCartItems = _dbContext.ShoppingCartItems.Where(cart => cart.CustomerId == order.UserId);
+            var shoppingCartItems = _dbContext.ShoppingCartItems.Where(cart => cart.CustomerId == order.userId);
             foreach (var item in shoppingCartItems)
             {
                 var orderDetail = new OrderDetail()

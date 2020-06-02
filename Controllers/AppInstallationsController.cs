@@ -24,10 +24,10 @@ namespace FoodApi.Controllers
 
         // GET: api/AppInstallations/AppInstallationsDetails/5
         [HttpGet("[action]/{AppInstallationsID}")]
-        public IActionResult AppInstallationsDetails(string UserId)
+        public IActionResult AppInstallationsDetails(Guid userId)
         {
 
-            var AppInstallations = _dbContext.AppInstallations.Where(AppInstallations => AppInstallations.UserId.ToString() == UserId);
+            var AppInstallations = _dbContext.AppInstallations.Where(AppInstallations => AppInstallations.userId == userId);
             return Ok(AppInstallations);
         }
 
@@ -35,7 +35,7 @@ namespace FoodApi.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Register(AppInstallations AppInstallations)
         {
-            var userWithSameEmail = _dbContext.AppInstallations.SingleOrDefault(u => u.UserId == AppInstallations.UserId && u.DeviceID == AppInstallations.DeviceID);
+            var userWithSameEmail = _dbContext.AppInstallations.SingleOrDefault(u => u.userId == AppInstallations.userId && u.DeviceID == AppInstallations.DeviceID);
             if (userWithSameEmail != null)
             {
                 var AppInstallation = _dbContext.AppInstallations.Where(s => s.AppInstId == userWithSameEmail.AppInstId);
@@ -45,7 +45,7 @@ namespace FoodApi.Controllers
             var AppInstallationsObj = new AppInstallations
             {
                 AppInstId = Guid.NewGuid(),
-                UserId = AppInstallations.UserId,
+                userId = AppInstallations.userId,
                 DeviceID = AppInstallations.DeviceID,
                 DeviceOS = AppInstallations.DeviceOS,
                 DeviceOSVersion = AppInstallations.DeviceOSVersion,
