@@ -8,7 +8,7 @@ namespace FoodApi.Models
         [Key]
         public Guid FamMembID { get; set; }
         public string MembType { get; set; }
-        public Guid UserId { get; set; }
+        public Guid userId { get; set; }
         public string MembFName { get; set; }
         public string MembLName { get; set; }
         public string MembEmail { get; set; }

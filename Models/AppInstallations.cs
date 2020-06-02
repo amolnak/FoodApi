@@ -7,7 +7,7 @@ namespace FoodApi.Models
     {
         [Key]
         public Guid AppInstId { get; set; }
-        public Guid UserId { get; set; }
+        public Guid userId { get; set; }
         public string DeviceID { get; set; }
         public string DeviceOS { get; set; }
         public string DeviceOSVersion { get; set; }
